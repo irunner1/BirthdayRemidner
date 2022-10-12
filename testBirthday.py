@@ -1,5 +1,6 @@
 import unittest
-from BirthdayReminder import addToList, showList
+import datetime
+from BirthdayReminder import addToList, deleteFromList, showList, showTodayBirthday
 from BirthdayReminder import BR
 
 
@@ -26,6 +27,31 @@ class birthdayTest(unittest.TestCase):
         input.append(BR("10/10/2010", "qwe"))
         result = showList(input)
         self.assertNotEqual(result, 1) # len should be 2
+
+    def test_deleteFromList_true(self):
+        input = []
+        input.append(BR("09/10/2010", "asd"))
+        result = deleteFromList(input, "09/10/2010")
+        self.assertEqual(result, 0)
+
+    def test_deleteFromList_false(self):
+        input = []
+        input.append(BR("08/10/2010", "asd"))
+        result = deleteFromList(input, "09/10/2010")
+        self.assertEqual(result, 1)
+
+    def test_showTodayBitrhday_true(self):
+        input = []
+        date = datetime.datetime.today().strftime("%d/%m/%Y")
+        input.append(BR(date, "asd"))
+        result = showTodayBirthday(input)
+        self.assertEqual(result, 1)
+
+    def test_showTodayBitrhday_false(self): # today 10.10.2022
+        input = []
+        input.append(BR("50/50/5000", "asd"))
+        result = showTodayBirthday(input)
+        self.assertNotEqual(result, 1)
 
 
 if __name__ == "__main__":
