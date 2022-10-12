@@ -1,6 +1,6 @@
 import unittest
 import datetime
-from BirthdayReminder import addToList, deleteFromList, showList, showTodayBirthday
+from BirthdayReminder import addToList, deleteFromList, showList, showNearestBirthday, showPersonBirthday, showTodayBirthday
 from BirthdayReminder import BR
 
 
@@ -52,7 +52,32 @@ class birthdayTest(unittest.TestCase):
         input.append(BR("50/50/5000", "asd"))
         result = showTodayBirthday(input)
         self.assertNotEqual(result, 1)
+    
+    def test_showPersonBirthday_true(self):
+        input = []
+        input.append(BR("09/10/2010", "asd"))
+        result = showPersonBirthday(input, "asd")
+        self.assertEqual(result, 1)
 
+    def test_showPersonBirthday_false(self):
+        input = []
+        input.append(BR("09/10/2010", "asd"))
+        result = showPersonBirthday(input, "bsd")
+        self.assertEqual(result, 0)
+    
+    def test_showNearestBirthday_true(self):
+        input = []
+        input.append(BR("08/10/2010", "asd"))
+        input.append(BR("13/10/2010", "asd"))
+        result = showNearestBirthday(input)
+        self.assertEqual(result, 3)
+
+    def test_showNearestBirthday_false(self):
+        input = []
+        input.append(BR("08/10/2010", "asd"))
+        input.append(BR("09/10/2010", "asd"))
+        result = showNearestBirthday(input)
+        self.assertEqual(result, 366)
 
 if __name__ == "__main__":
     unittest.main()

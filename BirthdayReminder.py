@@ -43,6 +43,32 @@ def deleteFromList(Bday_array, del_date):
     else:
         print("Дата успешно забыта")
     return 0
+def showPersonBirthday(Bday_array, find_name):
+    flag = 0
+    for i in Bday_array:
+        if i.name == find_name:
+            print ("У", i.name, "День Рождения", i.date)
+            flag = 1
+            return 1
+            break
+        if flag == 0:
+            print("Такого имени нет")
+    return 0
+
+def showNearestBirthday(Bday_array):
+    min_count = 366
+    rem = 0
+    today = datetime.datetime.today().strftime("%m-%d")
+    for i in range (0, len(Bday_array)):
+        temp_date = Bday_array[i].date[3:5] + "-" + Bday_array[i].date[:2]
+        today_date_format = datetime.datetime.strptime(today, "%m-%d")
+        date_format = datetime.datetime.strptime(temp_date, "%m-%d")
+        count = date_format - today_date_format
+        if min_count > int(count.days) and int(count.days) > 0:
+            min_count = count.days
+            rem = i
+    print("Ближайший День Рождения у", Bday_array[i].name, "через", min_count, "дней")
+    return min_count
 
 def main():
     Bday_array = []
@@ -66,6 +92,14 @@ def main():
             print("Введите дату, которую хотите удалить")
             del_date = input()
             deleteFromList(Bday_array, del_date)
+            continue
+        if switch == 5:
+            print ("Введите имя")
+            find_name = input()
+            showPersonBirthday(Bday_array, find_name)
+            continue
+        if switch == 6:
+            showNearestBirthday(Bday_array)
             continue
 
 if __name__ == "__main__":
