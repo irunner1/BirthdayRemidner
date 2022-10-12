@@ -1,4 +1,3 @@
-
 class BR():
     def __init__(self, date, name):
         self.date = date
