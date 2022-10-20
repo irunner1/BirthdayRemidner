@@ -25,11 +25,10 @@ def showTodayBirthday(Bday_array):
         if i.date[:5] == today:
             print("Сегодня День Рождения у", i.name)
             flag = 1
-            return 1
-            break
+            return i.name
     if flag == 0:
         print("Сегодня без праздников")
-    return 0
+    return 'nah'
 
 def deleteFromList(Bday_array, del_date):
     flag = 0
@@ -43,17 +42,20 @@ def deleteFromList(Bday_array, del_date):
     else:
         print("Дата успешно забыта")
     return 0
+
 def showPersonBirthday(Bday_array, find_name):
     flag = 0
     for i in Bday_array:
         if i.name == find_name:
             print ("У", i.name, "День Рождения", i.date)
             flag = 1
-            return 1
-            break
+            temp = i.name
+            temp += " "
+            temp += i.date
+            return temp
         if flag == 0:
             print("Такого имени нет")
-    return 0
+    return "nah"
 
 def showNearestBirthday(Bday_array):
     min_count = 366
